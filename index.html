@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Finance Control</title>
+		<link rel="stylesheet" href="styles.css" />
+		<!-- Chart.js CDN -->
+		<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	</head>
+	<body>
+		<header class="app-header">
+			<div class="brand">
+				<h1>Finance Control</h1>
+			</div>
+			<div class="header-actions">
+				<button id="themeToggle" class="icon-btn" title="Alternar tema">🌙</button>
+				<div class="avatar" title="Usuário">G</div>
+			</div>
+		</header>
+
+		<main class="container">
+			<section class="top-cards">
+				<article class="balance-card">
+					<div class="card-header">
+						<h2>Saldo Atual</h2>
+						<p class="muted">Atualizado automaticamente</p>
+					</div>
+					<div class="balance-value" id="balance">R$ 0,00</div>
+					<div class="quick-actions">
+						<button class="btn primary" id="addIncomeBtn">Adicionar Receita</button>
+						<button class="btn outline" id="addExpenseBtn">Adicionar Despesa</button>
+					</div>
+				</article>
+
+				<article class="summary-card">
+					<div class="summary-grid">
+						<div class="summary-item income">
+							<span class="label">Receita</span>
+							<strong id="totalIncome">R$ 0,00</strong>
+						</div>
+						<div class="summary-item expense">
+							<span class="label">Despesas</span>
+							<strong id="totalExpense">R$ 0,00</strong>
+						</div>
+						<div class="summary-item savings">
+							<span class="label">Economia</span>
+							<strong id="totalSavings">R$ 0,00</strong>
+						</div>
+					</div>
+				</article>
+			</section>
+
+			<section class="content-grid">
+				<aside class="chart-card">
+					<div class="card-head">
+						<h3>Gastos por categoria</h3>
+						<p class="muted">Clique em uma fatia para filtrar</p>
+					</div>
+					<canvas id="pieChart" aria-label="Gráfico de gasto por categoria" role="img"></canvas>
+				</aside>
+
+				<section class="transactions-card">
+					<div class="card-head">
+						<h3>Transações</h3>
+						<input id="search" class="search" type="search" placeholder="Buscar transações..." />
+					</div>
+					<ul id="transactionsList" class="transactions-list" aria-live="polite"></ul>
+				</section>
+			</section>
+		</main>
+
+		<!-- Modal / Form -->
+		<div id="modal" class="modal hidden">
+			<div class="modal-content">
+				<button id="closeModal" class="close">×</button>
+				<h3 id="modalTitle">Adicionar transação</h3>
+				<form id="transactionForm">
+					<div class="form-row">
+						<label for="t-name">Nome</label>
+						<input id="t-name" name="name" required />
+					</div>
+					<div class="form-row">
+						<label for="t-category">Categoria</label>
+						<select id="t-category" name="category">
+							<option value="Alimentação">Alimentação</option>
+							<option value="Transporte">Transporte</option>
+							<option value="Lazer">Lazer</option>
+							<option value="Contas">Contas</option>
+							<option value="Outros">Outros</option>
+						</select>
+					</div>
+					<div class="form-row two-col">
+						<div>
+							<label for="t-amount">Valor (R$)</label>
+							<input id="t-amount" name="amount" type="number" step="0.01" required />
+						</div>
+						<div>
+							<label for="t-type">Tipo</label>
+							<select id="t-type" name="type">
+								<option value="income">Receita</option>
+								<option value="expense">Despesa</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-row actions">
+						<button type="submit" class="btn primary">Salvar</button>
+						<button type="button" id="cancel" class="btn outline">Cancelar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<script src="app.js" defer></script>
+	</body>
+</html>
